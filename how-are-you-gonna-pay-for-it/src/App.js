@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import budget_function from './budget_function_2018.json'
+
+console.log(budget_function.total);
+
 class App extends Component {
   render() {
     return (
@@ -20,13 +24,47 @@ class App extends Component {
             Learn React, asshole
           </a>
         </header>
-        <ProgressTracker 
-          title="aww yea" 
+        <SpendingByFunction />
+        <ProgressTracker
+          title="aww yea"
           default_value="0"
           new="0"
         />
       </div>
     );
+  }
+}
+
+class AdjustmentSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: props.title,
+      amount: props.amount,
+    }
+  }
+  render() {
+    return <p>placeholder</p>
+  }
+}
+
+class SpendingByFunction extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoaded: false,
+    }
+  }
+  
+  render() {
+    const budget = budget_function;
+    return (
+      <div className="BudgetFunction">
+        <AdjustmentSlider 
+          title={budget.title}
+        />
+      </div>
+    )
   }
 }
 
@@ -53,4 +91,3 @@ class ProgressTracker extends React.Component {
 
 
 export default App;
- 

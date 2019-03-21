@@ -9,7 +9,16 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.categories = {}
+    this.categories = [
+      {
+        name: "education",
+        spending: 90
+      },
+      {
+        name: "military",
+        spending: 70
+      },
+    ]
 
     this.state = {
       initial_total: 999, 
@@ -17,20 +26,21 @@ class App extends Component {
     }
   }
 
+  // goes through the categories and subtracts their values from the initial amount
   calculateTotal (category, value) {
 
-    this.setState({ total: "blehhhh" });
-    let total = this.state.initial_amount;
-    this.categories[category] = value
-    console.log(this.categories);
-    for (let key in this.categories) {
-      const val = Number(this.categories[key])
-      total -= val;
-      console.log(key, this.categories[key], val, total)
-    }
-    console.log(total);
-    console.log(this.state);
-    this.setState({ total });
+    let total = parseInt(this.state.initial_total);
+    // this.categories[category] = parseInt(value);
+
+    this.categories.forEach( (item) => {
+      // const val = index;
+      console.log(item.spending);
+      total -= item.spending;
+    })
+    
+    this.setState({ total }, () => {
+      console.log("I ran: ", this.state);
+    });
   }
 
   render() {
@@ -81,7 +91,6 @@ class AdjustmentSlider extends React.Component {
 
   handleChange(event) {
     this.setState({amount: event.target.value});
-    console.log(this.state.amount);
     // this IS running
     this.props.calculate(this.state.amount);
     // make sure it's a number
@@ -137,7 +146,7 @@ class ProgressTracker extends React.Component {
     return (
       <div className="ProgressTracker">
         <h3>{this.state.title}</h3>
-        <p>{this.state.new_value} out of {this.props.default_value}</p>
+        <p>{this.props.new} out of {this.props.default_value}</p>
         <p>placeholder for the progress bar</p>
       </div>
     );

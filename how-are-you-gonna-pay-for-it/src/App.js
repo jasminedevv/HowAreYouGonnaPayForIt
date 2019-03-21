@@ -27,7 +27,6 @@ class App extends Component {
       let new_category = {
         name: json.results[index].name,
         spending: json.results[index].amount,
-        // the problem is that we are keeping track of amount cut in two places, since we actually have to keep track of it in the other place we should probably not keep track of it here
         amount_cut: 0,
       }
       categories.push(new_category);
@@ -36,20 +35,32 @@ class App extends Component {
     return categories;
   }
 
+  updateCategory(name, amount) {
+    for (let index in this.categories) {
+      let category = this.categories[index];
+      if (category.name === name) {
+        let new_category = {
+          name: name,
+          spending: category.spending,
+          amount_cut: Number(amount),
+        }
+        // set the category at index to the new category
+        this.categories[index] = new_category;
+
+        console.log("the new amount cut for", category.name, "is", this.categories[index].amount_cut, "because I was passed", amount);
+      }
+    }
+    console.log(this.categories)
+  }
+
   // goes through the categories and subtracts their values from the initial amount
   // called every time a slider is adjusted
-  calculateTotal(name, new_amount_cut) {
-    let total = 0;
-    this.categories.forEach((category) => {
-      // const val = index;
-      if (category.name === name) {
-        category.amount_cut = new_amount_cut;
-        console.log("the new amount cut for", category.name,"is", category.amount_cut, "because I was passed", new_amount_cut);
-      }
-      console.log(new_amount_cut);
-      // console.log("amount cut: ", this.categories[index].amount_cut);
-      // total += category.amount_cut;
-    })
+  calculateTotal() {
+    let new_amount_cut = 0;
+
+    this.categories.forEach( (category) => {
+      new_amount_cut += category.amount_cut;
+    });
 
     // console.log(this);
     this.setState({ amount_raised: new_amount_cut }, () => {
@@ -64,18 +75,20 @@ class App extends Component {
     for (let index in this.categories) {
       let category = this.categories[index];
       // OH!! this will always be zero because we're getting it from categories. We should be getting it from the AdjustmentSlider's form value
-      console.log(category.amount_cut);
+      // console.log(category.amount_cut);
       let slider = (
         <AdjustmentSlider
           key={category.name}
           name={category.name}
           spending={category.spending}
           amount_cut={category.amount_cut}
+          // TODO rename name and cat: misleading
+          updateCategory={ (name, cat) => {
+            this.updateCategory(name, cat)
+            }}
           calculate={() => {
-              this.calculateTotal(category.name, category.amount_cut);
-              console.log("I was passed", category.amount_cut);
-            }
-          }
+            this.calculateTotal(category.name, category.amount_cut);
+          }}
         />
       )
       sliders.push(slider);
@@ -87,7 +100,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           {sliders}
           <ProgressTracker
-            title="aww yea"
+            title="Go To Mars"
             default_value={this.state.target}
             new={this.state.amount_raised}
           />
@@ -110,6 +123,10 @@ class AdjustmentSlider extends React.Component {
   }
 
   handleChange(event) {
+    console.log(this.props)
+
+    this.props.updateCategory(this.state.key, event.target.value);
+
     this.setState(
       { amount_cut: event.target.value },
       () => {

@@ -9,67 +9,87 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.categories = [
-      {
-        name: "education",
-        spending: 90
-      },
-      {
-        name: "military",
-        spending: 70
-      },
-    ]
+    // categories should not contain duplicate items
+    // however, aren't I populating this from the budget function?
+    this.categories = this.populateCategories(budget_function);
+    // this.categories = new Set();
 
     this.state = {
-      initial_total: 999, 
-      total: 999,
+      target: 1000,
+      amount_raised: 0,
     }
   }
 
+  populateCategories(json) {
+    let categories = []
+
+    for (let index in json.results) {
+      let new_category = {
+        name: json.results[index].name,
+        spending: json.results[index].amount,
+        // the problem is that we are keeping track of amount cut in two places, since we actually have to keep track of it in the other place we should probably not keep track of it here
+        amount_cut: 0,
+      }
+      categories.push(new_category);
+    }
+    // console.log(categories)
+    return categories;
+  }
+
   // goes through the categories and subtracts their values from the initial amount
-  calculateTotal (category, value) {
-
-    let total = parseInt(this.state.initial_total);
-    // this.categories[category] = parseInt(value);
-
-    this.categories.forEach( (item) => {
+  // called every time a slider is adjusted
+  calculateTotal(name, new_amount_cut) {
+    let total = 0;
+    this.categories.forEach((category) => {
       // const val = index;
-      console.log(item.spending);
-      total -= item.spending;
+      if (category.name === name) {
+        category.amount_cut = new_amount_cut;
+        console.log("the new amount cut for", category.name,"is", category.amount_cut, "because I was passed", new_amount_cut);
+      }
+      console.log(new_amount_cut);
+      // console.log("amount cut: ", this.categories[index].amount_cut);
+      // total += category.amount_cut;
     })
-    
-    this.setState({ total }, () => {
+
+    // console.log(this);
+    this.setState({ amount_raised: new_amount_cut }, () => {
       console.log("I ran: ", this.state);
     });
   }
 
   render() {
+
+    // TODO: move into its own function
+    let sliders = [];
+    for (let index in this.categories) {
+      let category = this.categories[index];
+      // OH!! this will always be zero because we're getting it from categories. We should be getting it from the AdjustmentSlider's form value
+      console.log(category.amount_cut);
+      let slider = (
+        <AdjustmentSlider
+          key={category.name}
+          name={category.name}
+          spending={category.spending}
+          amount_cut={category.amount_cut}
+          calculate={() => {
+              this.calculateTotal(category.name, category.amount_cut);
+              console.log("I was passed", category.amount_cut);
+            }
+          }
+        />
+      )
+      sliders.push(slider);
+    }
+
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          {/* <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React, asshole
-          </a> */}
-          <AdjustmentSlider 
-            category="military" 
-            title="military"
-            calculate={(value) => {
-              this.calculateTotal('military', value)
-            }}
-            />
+          {sliders}
           <ProgressTracker
             title="aww yea"
-            default_value={this.state.initial_total}
-            new={this.state.total}
+            default_value={this.state.target}
+            new={this.state.amount_raised}
           />
         </header>
 
@@ -82,52 +102,37 @@ class AdjustmentSlider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: props.title,
-      initial_amount: props.initial_amount,
-      amount: 0,
+      key: props.name,
+      spending: props.spending,
+      amount_cut: props.amount_cut,
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({amount: event.target.value});
-    // this IS running
-    this.props.calculate(this.state.amount);
-    // make sure it's a number
+    this.setState(
+      { amount_cut: event.target.value },
+      () => {
+        console.log("I am", this.state.key, "and just set my state to:", this.state.amount_cut);
+        this.props.calculate();
+      }
+    );
   }
 
   render() {
-    const {title, amount, initial_amount} = this.state;
+    const { key, spending, amount_cut } = this.state;
     return (
-      <div>
-        <p>{title}</p>
-        <input 
-          type="text" 
+      <div className="category">
+        <hr></hr>
+        <h3>{key}</h3>
+        <input
+          type="text"
           size="4"
-          value={amount} 
+          value={amount_cut}
           onChange={this.handleChange}
         ></input>
-        <label> cut out of {initial_amount}</label>
-      </div>
-    )
-  }
-}
-
-class SpendingByFunction extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoaded: false, //temp
-    }
-  }
-
-  render() {
-    return (
-      <div className="BudgetFunction">
-        <AdjustmentSlider
-          title="Military"
-          initial_amount="20"
-        />
+        <label> cut out of {spending}</label>
+        <hr></hr>
       </div>
     )
   }

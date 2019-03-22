@@ -12,3 +12,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ProgressTracker {
+  position: fixed;
+  bottom: 0;
+  margin: 0 auto;
+  background-color: #ccc;
+  color: #333;
+  width: 100vw;
+}
+
+.ProgressTracker meter {
+  width: 80%;
+}

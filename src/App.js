@@ -4,19 +4,23 @@ import './App.css';
 
 import budget_function from './budget_function_2018.json'
 
+var HRNNum = require('human-readable-numbers');
+var toHumanNumber = HRNNum.toHumanString;
+
 class App extends Component {
 
   constructor(props) {
     super(props)
-
-    // categories should not contain duplicate items
-    // however, aren't I populating this from the budget function?
+ 
     this.categories = this.populateCategories(budget_function);
-    // this.categories = new Set();
 
     this.state = {
       target: 1000,
       amount_raised: 0,
+
+      // set the program we're raising money for
+      program_name: "Go to Mars",
+      program_target: 220000000000,
     }
   }
 
@@ -69,7 +73,6 @@ class App extends Component {
   }
 
   render() {
-
     // TODO: move into its own function
     let sliders = [];
     for (let index in this.categories) {
@@ -97,13 +100,16 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          {sliders}
+          <div className="sliders">
+            {sliders}
+          </div>
           <ProgressTracker
-            title="Go To Mars"
-            default_value={this.state.target}
+            title={this.state.program_name}
+            default_value={ this.state.program_target }
             new={this.state.amount_raised}
           />
+          <br></br>
+          <br></br>
         </header>
 
       </div>
@@ -148,7 +154,7 @@ class AdjustmentSlider extends React.Component {
           value={amount_cut}
           onChange={this.handleChange}
         ></input>
-        <label> cut out of {spending}</label>
+        <label> cut out of {toHumanNumber( true, spending )}</label>
         <hr></hr>
       </div>
     )
@@ -168,8 +174,9 @@ class ProgressTracker extends React.Component {
     return (
       <div className="ProgressTracker">
         <h3>{this.state.title}</h3>
-        <p>{this.props.new} out of {this.props.default_value}</p>
-        <p>placeholder for the progress bar</p>
+        <p>{ toHumanNumber( true, this.props.new )}  out of { toHumanNumber( true, this.props.default_value )}</p>
+
+        <meter value={this.props.new} min="0" max={this.props.default_value}></meter>
       </div>
     );
   }

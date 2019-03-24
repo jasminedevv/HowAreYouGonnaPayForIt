@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ProgressTracker from './ProgressTracker';
 
-import budget_function from './budget_function_2018.json'
+import AdjustmentSlider from './AdjustmentSlider';
 
-var HRNNum = require('human-readable-numbers');
-var toHumanNumber = HRNNum.toHumanString;
+import budget_function from './budget_function_2018.json';
 
 class App extends Component {
 
   constructor(props) {
     super(props)
- 
+
+    /** can be passed budget by function or agency (function for now) */
     this.categories = this.populateCategories(budget_function);
 
     this.state = {
@@ -19,11 +19,12 @@ class App extends Component {
       amount_raised: 0,
 
       // set the program we're raising money for
-      program_name: "Go to Mars",
-      program_target: 220000000000,
+      program_name: "Example",
+      program_target: 20,
     }
   }
 
+  /** Takes the json of categories and adds them to the App's this.categories */
   populateCategories(json) {
     let categories = []
 
@@ -35,8 +36,12 @@ class App extends Component {
       }
       categories.push(new_category);
     }
-    // console.log(categories)
     return categories;
+  }
+
+  /** should be passed to a component to change what program we are raising money for */
+  setProgram(name, target) {
+    this.setState({ program_name: name, program_target: target });
   }
 
   updateCategory(name, amount) {
@@ -50,19 +55,16 @@ class App extends Component {
         }
         // set the category at index to the new category
         this.categories[index] = new_category;
-
-        console.log("the new amount cut for", category.name, "is", this.categories[index].amount_cut, "because I was passed", amount);
       }
     }
     console.log(this.categories)
   }
 
-  // goes through the categories and subtracts their values from the initial amount
-  // called every time a slider is adjusted
+  /** goes through the categories and subtracts their values from the initial amount. Called every time a slider is adjusted */
   calculateTotal() {
     let new_amount_cut = 0;
 
-    this.categories.forEach( (category) => {
+    this.categories.forEach((category) => {
       new_amount_cut += category.amount_cut;
     });
 
@@ -73,12 +75,10 @@ class App extends Component {
   }
 
   render() {
-    // TODO: move into its own function
+    // TODO: move for loop block into its own function
     let sliders = [];
     for (let index in this.categories) {
       let category = this.categories[index];
-      // OH!! this will always be zero because we're getting it from categories. We should be getting it from the AdjustmentSlider's form value
-      // console.log(category.amount_cut);
       let slider = (
         <AdjustmentSlider
           key={category.name}
@@ -86,9 +86,9 @@ class App extends Component {
           spending={category.spending}
           amount_cut={category.amount_cut}
           // TODO rename name and cat: misleading
-          updateCategory={ (name, cat) => {
+          updateCategory={(name, cat) => {
             this.updateCategory(name, cat)
-            }}
+          }}
           calculate={() => {
             this.calculateTotal(category.name, category.amount_cut);
           }}
@@ -99,13 +99,18 @@ class App extends Component {
 
     return (
       <div className="App">
+        <ProgramSetter
+          setProgram={(name, dollars) => {
+            this.setProgram(name, dollars)
+          }}
+        ></ProgramSetter>
         <header className="App-header">
           <div className="sliders">
             {sliders}
           </div>
           <ProgressTracker
             title={this.state.program_name}
-            default_value={ this.state.program_target }
+            default_value={this.state.program_target}
             new={this.state.amount_raised}
           />
           <br></br>
@@ -117,71 +122,70 @@ class App extends Component {
   }
 }
 
-class AdjustmentSlider extends React.Component {
+class ProgramSetter extends React.Component {
   constructor(props) {
     super(props);
+    this.presets = [
+      {
+        name: "Send Humans to Mars",
+        dollars: 220000000000,
+        proof_source: "https://qz.com/1273644/heres-how-nasa-and-spacex-chart-the-price-of-a-trip-to-mars/",
+      },
+      {
+        name: "Border Wall",
+        dollars: 21600000000,
+        proof_source: "https://www.reuters.com/article/us-usa-trump-immigration-wall-exclusive-idUSKBN15O2ZN"
+      },
+      {
+        name: "Aircraft Carrier",
+        dollars: 12900000000,
+        proof_source: "https://fas.org/sgp/crs/weapons/RS20643.pdf",
+      }
+    ]
+    /** TODO: rename target and value to dollars where it refers to dollar amounts */
     this.state = {
-      key: props.name,
-      spending: props.spending,
-      amount_cut: props.amount_cut,
+      name: this.props.name,
+      dollars: this.props.dollars,
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    console.log(this.props)
-
-    this.props.updateCategory(this.state.key, event.target.value);
-
     this.setState(
-      { amount_cut: event.target.value },
+      {
+        name: this.presets[event.target.value].name,
+        dollars: this.presets[event.target.value].dollars
+      },
       () => {
-        console.log("I am", this.state.key, "and just set my state to:", this.state.amount_cut);
-        this.props.calculate();
+        console.log(this.state.name, this.state.dollars);
+        this.props.setProgram(this.state.name, this.state.dollars);
       }
-    );
+    )
+
+    console.log(event.target.value);
+    // console.log("change handled:", event.target);
   }
 
   render() {
-    const { key, spending, amount_cut } = this.state;
+    let presets = [];
+    for (let index in this.presets) {
+      let item = (<option
+        key={index}
+        dollars={this.presets[index].dollars}
+        value={index}>{this.presets[index].name}</option>)
+      presets.push(item);
+    }
     return (
-      <div className="category">
-        <hr></hr>
-        <h3>{key}</h3>
-        <input
-          type="text"
-          size="4"
-          value={amount_cut}
-          onChange={this.handleChange}
-        ></input>
-        <label> cut out of {toHumanNumber( true, spending )}</label>
-        <hr></hr>
+      <div className="TargetUpdater">
+        <h1>Presets</h1>
+        <select onChange={this.handleChange} className="presets">
+          {presets}
+        </select>
+        <br></br>
       </div>
     )
   }
 }
-
-class ProgressTracker extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: props.title,
-      default_value: props.default_value,
-      new_value: props.new,
-    }
-  }
-  render() {
-    return (
-      <div className="ProgressTracker">
-        <h3>{this.state.title}</h3>
-        <p>{ toHumanNumber( true, this.props.new )}  out of { toHumanNumber( true, this.props.default_value )}</p>
-
-        <meter value={this.props.new} min="0" max={this.props.default_value}></meter>
-      </div>
-    );
-  }
-}
-
 
 
 export default App;

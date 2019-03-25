@@ -20,6 +20,26 @@ class PresetSetter extends Component {
         name: "Aircraft Carrier",
         dollars: 12900000000,
         proof_source: "https://fas.org/sgp/crs/weapons/RS20643.pdf",
+      },
+      {
+        name: "Moon Base",
+        dollars: 63000000000,
+        proof_source: "https://www.marketwatch.com/story/it-would-cost-only-10-billion-to-live-on-the-moon-2016-03-17",
+      },
+      {
+        name: "Universal Basic Income ($12k/year)",
+        dollars: 3800000000000,
+        proof_source: "https://www.marketwatch.com/story/it-would-cost-only-10-billion-to-live-on-the-moon-2016-03-17",
+      },
+      {
+        name: "Forgive All Student Loan Debt",
+        dollars: 1500000000000,
+        proof_source: "https://www.nytimes.com/2018/12/01/opinion/letters/student-loans.html"
+      },
+      {
+        name: "Fix Flint Water Crisis",
+        dollars: 55000000,
+        proof_source: "https://www.theguardian.com/us-news/2018/jul/12/elon-musk-flint-fund-clean-water-contamination"
       }
     ]
     /** TODO: rename target and value to dollars where it refers to dollar amounts */

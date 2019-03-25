@@ -4,6 +4,8 @@ import ProgressTracker from './ProgressTracker';
 
 import AdjustmentSlider from './AdjustmentSlider';
 
+import PresetSetter from './PresetSetter';
+
 import budget_function from './budget_function_2018.json';
 
 class App extends Component {
@@ -15,7 +17,7 @@ class App extends Component {
     this.categories = this.populateCategories(budget_function);
 
     this.state = {
-      target: 1000,
+      // target: 1000,
       amount_raised: 0,
 
       // set the program we're raising money for
@@ -99,11 +101,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <ProgramSetter
+        <PresetSetter
           setProgram={(name, dollars) => {
             this.setProgram(name, dollars)
           }}
-        ></ProgramSetter>
+        ></PresetSetter>
         <header className="App-header">
           <div className="sliders">
             {sliders}
@@ -119,71 +121,6 @@ class App extends Component {
 
       </div>
     );
-  }
-}
-
-class ProgramSetter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.presets = [
-      {
-        name: "Send Humans to Mars",
-        dollars: 220000000000,
-        proof_source: "https://qz.com/1273644/heres-how-nasa-and-spacex-chart-the-price-of-a-trip-to-mars/",
-      },
-      {
-        name: "Border Wall",
-        dollars: 21600000000,
-        proof_source: "https://www.reuters.com/article/us-usa-trump-immigration-wall-exclusive-idUSKBN15O2ZN"
-      },
-      {
-        name: "Aircraft Carrier",
-        dollars: 12900000000,
-        proof_source: "https://fas.org/sgp/crs/weapons/RS20643.pdf",
-      }
-    ]
-    /** TODO: rename target and value to dollars where it refers to dollar amounts */
-    this.state = {
-      name: this.props.name,
-      dollars: this.props.dollars,
-    }
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState(
-      {
-        name: this.presets[event.target.value].name,
-        dollars: this.presets[event.target.value].dollars
-      },
-      () => {
-        console.log(this.state.name, this.state.dollars);
-        this.props.setProgram(this.state.name, this.state.dollars);
-      }
-    )
-
-    console.log(event.target.value);
-    // console.log("change handled:", event.target);
-  }
-
-  render() {
-    let presets = [];
-    for (let index in this.presets) {
-      let item = (<option
-        key={index}
-        dollars={this.presets[index].dollars}
-        value={index}>{this.presets[index].name}</option>)
-      presets.push(item);
-    }
-    return (
-      <div className="TargetUpdater">
-        <h1>Presets</h1>
-        <select onChange={this.handleChange} className="presets">
-          {presets}
-        </select>
-        <br></br>
-      </div>
-    )
   }
 }
 

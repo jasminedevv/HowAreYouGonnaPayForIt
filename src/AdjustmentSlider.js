@@ -33,13 +33,17 @@ class AdjustmentSlider extends Component {
         <div className="category">
           <hr></hr>
           <h3>{key}</h3>
+          <label> {toHumanNumber( true, amount_cut)} cut out of ${toHumanNumber( true, spending )}</label>
+          <br></br>
           <input
-            type="text"
+            className="slider"
+            type="range"
             size="4"
             value={amount_cut}
+            min="0"
+            max={spending}
             onChange={this.handleChange}
           ></input>
-          <label> cut out of ${toHumanNumber( true, spending )}</label>
           <hr></hr>
         </div>
       )

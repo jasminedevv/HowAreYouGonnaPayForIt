@@ -21,8 +21,8 @@ class App extends Component {
       amount_raised: 0,
 
       // set the program we're raising money for
-      program_name: "Example",
-      program_target: 20,
+      program_name: "Send Humans to Mars",
+      program_target: 220000000000,
     }
   }
 

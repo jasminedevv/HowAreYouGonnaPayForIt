@@ -25,3 +25,7 @@ code {
 .ProgressTracker meter {
   width: 80%;
 }
+
+input.slider {
+  width: 100%;
+}

@@ -8,13 +8,17 @@ import PresetSetter from './PresetSetter';
 
 import budget_function from './budget_function_2018.json';
 
+import budget_agency from './agency_2018.json'
+
+const BUDGET = budget_function;
+
 class App extends Component {
 
   constructor(props) {
     super(props)
 
     /** can be passed budget by function or agency (function for now) */
-    this.categories = this.populateCategories(budget_function);
+    this.categories = this.populateCategories(BUDGET);
 
     this.state = {
       // target: 1000,

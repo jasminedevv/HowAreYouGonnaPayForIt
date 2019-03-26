@@ -51,7 +51,7 @@ body {
 }
 
 .AdjustmentSlider input {
-
+  max-width: 100%;
   transform: rotate(180deg);
 }
 

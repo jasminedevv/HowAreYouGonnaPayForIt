@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/HowAreYouGonnaPayForIt/static/js/runtime~main.2ac2bc13.js"
   },
   {
-    "revision": "d2ff862b90c2b0925a1c",
+    "revision": "05b797889b689d203051",
     "url": "/HowAreYouGonnaPayForIt/static/js/main.ff333db3.chunk.js"
   },
   {
@@ -12,11 +12,11 @@ self.__precacheManifest = [
     "url": "/HowAreYouGonnaPayForIt/static/js/2.15a48e6e.chunk.js"
   },
   {
-    "revision": "d2ff862b90c2b0925a1c",
-    "url": "/HowAreYouGonnaPayForIt/static/css/main.cded7021.chunk.css"
+    "revision": "05b797889b689d203051",
+    "url": "/HowAreYouGonnaPayForIt/static/css/main.6a63eb53.chunk.css"
   },
   {
-    "revision": "a22ec0b3fe5349a06647d71051de03c3",
+    "revision": "671c00485ef6ad7808909e3b81b291c7",
     "url": "/HowAreYouGonnaPayForIt/index.html"
   }
 ];

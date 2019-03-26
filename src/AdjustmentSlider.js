@@ -30,10 +30,9 @@ class AdjustmentSlider extends Component {
     render() {
       const { key, spending, amount_cut } = this.state;
       return (
-        <div className="category">
-          <hr></hr>
-          <h3>{key}</h3>
-          <label> {toHumanNumber( true, amount_cut)} cut out of ${toHumanNumber( true, spending )}</label>
+        <div className="AdjustmentSlider">
+          <h3 className="dark">{key}</h3>
+          <label> <span className="red">{toHumanNumber( true, amount_cut)}</span> cut out of ${toHumanNumber( true, spending )}</label>
           <br></br>
           <input
             className="slider"
@@ -44,7 +43,6 @@ class AdjustmentSlider extends Component {
             max={spending}
             onChange={this.handleChange}
           ></input>
-          <hr></hr>
         </div>
       )
     }

@@ -74,34 +74,14 @@ class PresetSetter extends Component {
       presets.push(item);
     }
     return (
-      <div className="TargetUpdater">
-        <h1>Presets</h1>
+      <div className="PresetSetter">
+        <h1>What Do you Want to Fund?</h1>
         <select onChange={this.handleChange} className="presets">
           {presets}
         </select>
-        <br></br>
       </div>
     )
   }
 }
-
-// class AddCustomProgram extends Component {
-//   constructor (props) {
-//     super(props);
-//     this.state = {
-//       display = false,
-
-//     }
-//   }
-//   render () {
-//     let display;
-//     this.display ? display = 0 : display = 1;
-//     return (
-//       <form>
-
-//       </form>
-//     )
-//   }
-// }
 
 export default PresetSetter;

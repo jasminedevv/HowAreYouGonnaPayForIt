@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "gh-pages": "^2.0.1",
     "human-readable-numbers": "github:lacunahag/human-readable-numbers.git#jas-dev",
     "install": "^0.12.2",

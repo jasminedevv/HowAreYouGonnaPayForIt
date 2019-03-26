@@ -52,6 +52,11 @@ body {
   color: #495867;
 }
 
+.AdjustmentSlider input {
+
+  transform: rotate(180deg);
+}
+
 .ProgressTracker {
   position: fixed;
   bottom: 0;
@@ -59,6 +64,7 @@ body {
   background-color: #BDD5EA;
   color: #495867;
   width: 100vw;
+  
 }
 
 .ProgressTracker meter {

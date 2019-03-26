@@ -127,13 +127,6 @@
             "amount": 18500031511.04,
             "name": "Energy",
             "type": "budget_function"
-        },
-        {
-            "code": "000",
-            "id": "000",
-            "amount": 0,
-            "name": "Governmental Receipts",
-            "type": "budget_function"
         }
     ]
 }

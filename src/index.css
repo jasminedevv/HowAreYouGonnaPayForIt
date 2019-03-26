@@ -2,8 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #F7F7FF;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,28 +17,27 @@ body {
 
 .PresetSetter {
   background: #495867;
-  padding: 2vh 0;
   color: #BDD5EA;
   position: fixed;
   top: 0;
+  left: 0;
   margin: 0 auto;
-  width: 100vw;
+  width: 50vw;
   height: 20vh;
-  font-size: 1.5vh;
 }
 
 .PresetSetter h1 {
-  font-size: 3vh;
+  font-size: 4.2vw;
 }
 
 .PresetSetter select {
-  font-size: 3vh;
+  font-size: 2vh;
 }
 
 .sliders {
   position: fixed;
-  top: 14vh;
-  height: 70vh;
+  top: 20vh;
+  height: 80vh;
   width: 100vw;
   overflow-y: scroll;
   padding: 1vh;
@@ -59,16 +57,22 @@ body {
 
 .ProgressTracker {
   position: fixed;
-  top: calc(100vh - 20vh - 60px);
+  top: 0;
   margin: 0 auto;
   background-color: #BDD5EA;
   color: #495867;
-  width: 100vw;
+  width: 50vw;
+  left: 50vw;
+  height: 20vh;
+  font-size: 2.5vw;
 }
 
 .ProgressTracker meter {
-  width: 100%;
+  width: 100vw;
   margin-top: 0;
+  position: fixed;
+  top: 20vh;
+  right: 0;
 }
 
 .ProgressTracker p {
@@ -84,12 +88,12 @@ input.slider {
   top: calc(100vh - 60px);
   bottom: 0;
   width: 100%;
-  padding: 1vh;
-  background: #D33D3B;
+  padding: 1.5vh 0;
+  background: #495867;
 }
 
 .socials a {
-  font-size: 5vw;
-  padding: 2vw;
-  color: #BDD5EA;
+  font-size: 4vw;
+  padding: 2.5vw;
+  color: #fff;
 }

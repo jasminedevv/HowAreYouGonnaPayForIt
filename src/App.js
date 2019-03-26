@@ -119,13 +119,13 @@ class App extends Component {
           <br></br>
 
         </header>
-        {/* <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></link>
+        <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"></link>
         <footer className="socials">
           <a title="Linkedin" href="https://www.linkedin.com/in/jasminehumbert"><i class="fa fa-linkedin"></i></a>
           <a title="Codepen" href="http://codepen.io/lacunahag/"><i class="fa fa-codepen"></i></a>
           <a title="Github" href="https://www.github.com/lacunahag/"><i class="fa fa-github"></i></a>
           <a title="Keybase" href="https://keybase.io/lacunahag"><i class="fa fa-key"></i></a>
-        </footer> */}
+        </footer>
       </div>
     );
   }

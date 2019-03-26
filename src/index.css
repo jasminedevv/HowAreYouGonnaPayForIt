@@ -59,7 +59,7 @@ body {
 
 .ProgressTracker {
   position: fixed;
-  top: 80vh;
+  top: calc(100vh - 20vh - 60px);
   margin: 0 auto;
   background-color: #BDD5EA;
   color: #495867;
@@ -79,9 +79,17 @@ input.slider {
   width: 100%;
 }
 
-/* .socials {
+.socials {
   position: fixed;
-  top: calc(100vh - 56px);
+  top: calc(100vh - 60px);
   bottom: 0;
   width: 100%;
-} */
+  padding: 1vh;
+  background: #D33D3B;
+}
+
+.socials a {
+  font-size: 5vw;
+  padding: 2vw;
+  color: #BDD5EA;
+}

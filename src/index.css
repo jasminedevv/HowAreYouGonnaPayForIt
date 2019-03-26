@@ -59,12 +59,11 @@ body {
 
 .ProgressTracker {
   position: fixed;
-  bottom: 0;
+  top: 80vh;
   margin: 0 auto;
   background-color: #BDD5EA;
   color: #495867;
   width: 100vw;
-  
 }
 
 .ProgressTracker meter {
@@ -80,3 +79,9 @@ input.slider {
   width: 100%;
 }
 
+/* .socials {
+  position: fixed;
+  top: calc(100vh - 56px);
+  bottom: 0;
+  width: 100%;
+} */

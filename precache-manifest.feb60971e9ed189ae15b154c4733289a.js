@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/HowAreYouGonnaPayForIt/static/css/main.d2957762.chunk.css"
   },
   {
-    "revision": "08c80bf075c47acb0daf0115b2ad846c",
+    "revision": "df75722b6d0fe53d6a823644d5b3c2e8",
     "url": "/HowAreYouGonnaPayForIt/index.html"
   }
 ];

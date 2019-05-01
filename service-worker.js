@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/HowAreYouGonnaPayForIt/precache-manifest.988e63d55e11a424f3efe694f5012d3b.js"
+  "/HowAreYouGonnaPayForIt/precache-manifest.6244db31c8026be41cf36e897a29fe76.js"
 );
 
 workbox.clientsClaim();

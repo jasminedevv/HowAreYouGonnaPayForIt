@@ -1,6 +1,6 @@
 # How are you gonna pay for it?
 
-## Check it out [here](https://howareyougonnapayforit.com)
+## Check it out [here](https://howareyougonnapayforit.org)
 
 Most Americans don’t really know where their taxes go. When we talk about such incomprehensibly big numbers it’s impossible to have real perspective. Do you know how many zeros are at the end of a trillion? Can you truly fathom how much a million is? If so, how much more than a million really is in a hundred million?
 

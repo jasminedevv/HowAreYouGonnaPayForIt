@@ -6,6 +6,8 @@ Most Americans don’t really know where their taxes go. When we talk about such
 
 Move the sliders to the left to cut a percentage from a government budget item and see what it can pay for. You’ll notice that cutting programs in the billions barely makes a dent in a bar that requires trillions. Items in the millions can be overfunded by simply touching one of the sliders that operates in billions.
 
+Of course this isn't the whole picture, politically speaking. As one example, you couldn't stop paying interest on federal loans for a year.
+
 ## Technologies
 - React
 
